@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+    <plugin
+        uexName="uexALiBaiChuan" version="3.0.0" build="0">
+        <info>0:阿里百川插件</info>
+    </plugin>
+</uexplugins>

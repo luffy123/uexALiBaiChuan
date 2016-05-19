@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+	<plugin
+        className="org.zywx.wbpalmstar.plugin.uexalibaichuan.EUExALiBaiChuan" uexName="uexALiBaiChuan" >
+        <method name="init"></method>
+        <method name="login"></method>
+        <method name="logout"></method>
+        <method name="getUserInfo" sync="true"></method>
+        <method name="openMyCart"></method>
+        <method name="openMyOrdersPage"></method>
+        <method name="openItemDetailPageById"></method>
+        <method name="openItemDetailPageByURL"></method>
+
+    </plugin>
+</uexplugins>

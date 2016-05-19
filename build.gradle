@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0"
+    lintOptions {
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs=['libs']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+    signingConfigs {
+        debug {
+            storeFile file("android.keystore")
+            storePassword "123456"
+            keyAlias "android.keystore"
+            keyPassword "123456"
+        }
+        release{
+            storeFile file("android.keystore")
+            storePassword "111111"
+            keyAlias "android.keystore"
+            keyPassword "111111"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+def pluginName="uexALiBaiChuan"
+def buildConfigPath="org/zywx/wbpalmstar/widgetone/"
+
+def jarDir=pluginName+'/jar/'
+def jarName="plugin_"+pluginName+".jar"
+def jarPath=jarDir+jarName
+
+task clearJar(type: Delete) {
+    delete jarPath;
+}
+
+task makeJar(type:Jar,dependsOn:['compileReleaseJavaWithJavac']) {
+    archiveName jarName
+    from('build/intermediates/classes/release/')
+    destinationDir=file(jarDir)
+    exclude('**/R.class')
+    exclude('**/R\$*.class')
+    exclude('**/BuildConfig.class')
+    exclude(buildConfigPath)
+}
+
+makeJar.dependsOn(clearJar)
