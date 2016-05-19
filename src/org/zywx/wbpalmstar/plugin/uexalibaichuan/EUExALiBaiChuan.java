@@ -40,6 +40,7 @@ public class EUExALiBaiChuan extends EUExBase {
     public static final String CALLBACK_OPEN_ITEM_DETAIL_PAGE_BY_ID = "uexALiBaiChuan.cbOpenItemDetailPageById";
     public static final String CALLBACK_OPEN_ITEM_DETAIL_PAGE_BY_URL = "uexALiBaiChuan.cbOpenItemDetailPageByURL";
     public static final String TEXT_STATUS = "status";
+    public static final String TEXT_MSG = "msg";
 
     public EUExALiBaiChuan(Context context, EBrowserView view) {
         super(context, view);
@@ -68,6 +69,7 @@ public class EUExALiBaiChuan extends EUExBase {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put(TEXT_STATUS, 1);
+                    jsonObject.put(TEXT_MSG, message);
                 } catch (JSONException e) {
                     Log.i(TAG, "[init]" + e.getMessage());
                     e.printStackTrace();
@@ -90,7 +92,7 @@ public class EUExALiBaiChuan extends EUExBase {
             public void onSuccess(Session session) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("isLogin", 1);
+                    jsonObject.put("isLogin", 0);
                 } catch (JSONException e) {
                     Log.i(TAG, "[login]" + e.getMessage());
                     e.printStackTrace();
@@ -102,7 +104,7 @@ public class EUExALiBaiChuan extends EUExBase {
             public void onFailure(int code, String message) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("isLogin", 0);
+                    jsonObject.put("isLogin", 1);
                 } catch (JSONException e) {
                     Log.i(TAG, "[login]" + e.getMessage());
                     e.printStackTrace();
