@@ -26,8 +26,10 @@ import com.taobao.tae.sdk.callback.InitResultCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.zywx.wbpalmstar.base.BUtility;
 import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.engine.universalex.EUExBase;
+import org.zywx.wbpalmstar.engine.universalex.EUExCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,12 @@ public class EUExALiBaiChuan extends EUExBase {
      * @param params
      */
     public void init(String[] params) {
+        final String initCallbackId = params.length == 1 ? params[0] : null;
+        //如果有传回调函数
+        if(!TextUtils.isEmpty(initCallbackId) && !BUtility.isNumeric(initCallbackId)) {
+            return;
+        }
+
         AlibabaSDK.asyncInit(mContext, new InitResultCallback() {
             @Override
             public void onSuccess() {
@@ -61,7 +69,12 @@ public class EUExALiBaiChuan extends EUExBase {
                     Log.i(TAG, "[init]" + e.getMessage());
                     e.printStackTrace();
                 }
-                callBackPluginJs(CALLBACK_INIT, jsonObject.toString());
+                if (!TextUtils.isEmpty(initCallbackId)) {
+                    callbackToJs(Integer.parseInt(initCallbackId), false, EUExCallback.F_C_SUCCESS);
+                } else {
+                    callBackPluginJs(CALLBACK_INIT, jsonObject.toString());
+                }
+
             }
 
             @Override
@@ -74,7 +87,11 @@ public class EUExALiBaiChuan extends EUExBase {
                     Log.i(TAG, "[init]" + e.getMessage());
                     e.printStackTrace();
                 }
-                callBackPluginJs(CALLBACK_INIT, jsonObject.toString());
+                if (!TextUtils.isEmpty(initCallbackId)) {
+                    callbackToJs(Integer.parseInt(initCallbackId), false, EUExCallback.F_C_FAILED, message);
+                } else {
+                    callBackPluginJs(CALLBACK_INIT, jsonObject.toString());
+                }
             }
         });
     }
@@ -84,6 +101,11 @@ public class EUExALiBaiChuan extends EUExBase {
      * @param params
      */
     public void login(String params[]) {
+        final String loginCallbackId = params.length == 1 ? params[0] : null;
+        //如果有传回调函数
+        if(!TextUtils.isEmpty(loginCallbackId) && !BUtility.isNumeric(loginCallbackId)) {
+            return;
+        }
         LoginService loginService = AlibabaSDK.getService(LoginService.class);
         registerActivityResult();
         loginService.showLogin((Activity) mContext, new LoginCallback() {
@@ -97,7 +119,12 @@ public class EUExALiBaiChuan extends EUExBase {
                     Log.i(TAG, "[login]" + e.getMessage());
                     e.printStackTrace();
                 }
-                callBackPluginJs(CALLBACK_LOGIN, jsonObject.toString());
+                if (!TextUtils.isEmpty(loginCallbackId)) {
+                    callbackToJs(Integer.parseInt(loginCallbackId), false, EUExCallback.F_C_SUCCESS);
+                } else {
+                    callBackPluginJs(CALLBACK_LOGIN, jsonObject.toString());
+                }
+
             }
 
             @Override
@@ -110,7 +137,11 @@ public class EUExALiBaiChuan extends EUExBase {
                     e.printStackTrace();
                 }
                 Log.i(TAG, "[login][onFailure]code:" + code + "    message:" + message);
-                callBackPluginJs(CALLBACK_LOGIN, jsonObject.toString());
+                if (!TextUtils.isEmpty(loginCallbackId)) {
+                    callbackToJs(Integer.parseInt(loginCallbackId), false, EUExCallback.F_C_FAILED, message);
+                } else {
+                    callBackPluginJs(CALLBACK_LOGIN, jsonObject.toString());
+                }
             }
         });
     }
@@ -128,7 +159,6 @@ public class EUExALiBaiChuan extends EUExBase {
                 jsonObject.put("iconUrl", sessionCache.getUser().avatarUrl);
                 jsonObject.put("authorizationCode", sessionCache.getAuthorizationCode());
                 jsonObject.put("loginTime", sessionCache.getLoginTime());
-                jsonObject.put("isLogin", 0);
             }
             return jsonObject.toString();
         } catch (JSONException e) {
@@ -139,6 +169,11 @@ public class EUExALiBaiChuan extends EUExBase {
     }
 
     public void logout(String params[]) {
+        final String logoutCallbackId = params.length == 1 ? params[0] : null;
+        //如果有传回调函数
+        if(!TextUtils.isEmpty(logoutCallbackId) && !BUtility.isNumeric(logoutCallbackId)) {
+            return;
+        }
         LoginService loginService = AlibabaSDK.getService(LoginService.class);
         loginService.logout((Activity) mContext, new LogoutCallback() {
             @Override
@@ -150,7 +185,11 @@ public class EUExALiBaiChuan extends EUExBase {
                     Log.i(TAG, "[logout]" + e.getMessage());
                     e.printStackTrace();
                 }
-                callBackPluginJs(CALLBACK_LOGOUT, jsonObject.toString());
+                if (!TextUtils.isEmpty(logoutCallbackId)) {
+                    callbackToJs(Integer.parseInt(logoutCallbackId), false, EUExCallback.F_C_SUCCESS);
+                } else {
+                    callBackPluginJs(CALLBACK_LOGOUT, jsonObject.toString());
+                }
             }
 
             @Override
@@ -163,7 +202,11 @@ public class EUExALiBaiChuan extends EUExBase {
                     Log.i(TAG, "[logout]" + e.getMessage());
                     e.printStackTrace();
                 }
-                callBackPluginJs(CALLBACK_LOGOUT, jsonObject.toString());
+                if (!TextUtils.isEmpty(logoutCallbackId)) {
+                    callbackToJs(Integer.parseInt(logoutCallbackId), false, EUExCallback.F_C_FAILED, message);
+                } else {
+                    callBackPluginJs(CALLBACK_LOGOUT, jsonObject.toString());
+                }
             }
         });
     }

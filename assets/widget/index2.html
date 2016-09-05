@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+            <title>uexALiBaiChuan</title>
+            <script type="text/javascript">
+                window.uexOnload = function() {
+                    uexALiBaiChuan.cbInit = function(state){
+                        alert(state);
+                    }
+                    uexALiBaiChuan.cbLogin = function(state){
+                        alert(state);
+                    }
+                    uexALiBaiChuan.cbLogout = function(state){
+                        alert(state);
+                    }
+                    uexALiBaiChuan.onTrade = function(state){
+                        alert(state);
+                    }
+
+                };
+                function initButton(){
+                    uexALiBaiChuan.init(function(error, msg) {
+                        alert('error:' + error + "   msg:" + msg);
+                    });
+                }
+            function loginButton(){
+
+                uexALiBaiChuan.login(function(error, msg) {
+                    if (!error) {
+                        alert("login success");
+                    } else {
+                        alert('[login fail]' + msg);
+                    }
+                }) ;
+            }
+            function logoutButton(){
+                uexALiBaiChuan.logout(function(error, msg) {
+                    if (!error) {
+                        alert("logout success");
+                    } else {
+                        alert('[logout fail]' + msg);
+                    }
+                });
+            }
+            function getUserInfoButton(){
+              alert(uexALiBaiChuan.getUserInfo());
+            }
+            function openMyCartButton(){
+                uexALiBaiChuan.openMyCart();
+            }
+            function openMyOrdersPageButton(){
+                uexALiBaiChuan.openMyOrdersPage();
+            }
+            function openItemDetailPageByIdButton(){
+                var params = {
+                    isvcode:"feelinglife",
+                    itemid : "528887107325", //或openid:AAHd5d-HAAeGwJedwSnHktBI,//AAHd5d-HAAeGwJedwSnHktBI
+                    mmpid : "mm_115999024_0_0"
+                };
+                uexALiBaiChuan.openItemDetailPageById(JSON.stringify(params));
+            }
+            function openItemDetailPageByURLButton(){
+
+                var params = {
+                    url : "https://detail.tmall.com/item.htm?id=528887107325",
+                    mmpid : "mm_115999024_0_0"
+                };
+                uexALiBaiChuan.openItemDetailPageByURL(JSON.stringify(params));
+            }
+            </script>
+            </head>
+
+    <body>
+        <div class="tit" id = "tit">uexALiBaiChuan</div>
+        <div class="conbor">
+            <div class="consj">
+                <br><br><br><br><br><br><br>
+                <input class="btn" type="button" value="init" onclick="initButton();"/>
+                <input class="btn" type="button" value="login" onclick="loginButton();"/>
+                <input class="btn" type="button" value="logout" onclick="logoutButton();"/>
+                 <input class="btn" type="button" value="getUserInfo" onclick="getUserInfoButton();"/>
+                 <input class="btn" type="button" value="openMyCart" onclick="openMyCartButton();"/>
+                  <input class="btn" type="button" value="openMyOrdersPage" onclick="openMyOrdersPageButton();"/>
+                   <input class="btn" type="button" value="openItemDetailPageById" onclick="openItemDetailPageByIdButton();"/>
+                    <input class="btn" type="button" value="openItemDetailPageByURL" onclick="openItemDetailPageByURLButton();"/>
+
+            </div>
+        </div>
+    </body>
+</html>
