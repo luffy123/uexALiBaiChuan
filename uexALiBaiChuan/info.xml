@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexALiBaiChuan" version="4.0.0" build="0">
-        <info>0:阿里百川插件</info>
+        uexName="uexALiBaiChuan" version="4.3.0" build="1">
+        <info>1:添加动态权限申请</info>
+        <build>0:阿里百川插件</build>
     </plugin>
 </uexplugins>
